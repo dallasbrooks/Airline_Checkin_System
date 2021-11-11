@@ -12,4 +12,6 @@
 #include "constants.h"
 #include "customer.h"
 #include "errors.h"
+#include "helper.h"
+#include "threads.h"
 #include "types.h"

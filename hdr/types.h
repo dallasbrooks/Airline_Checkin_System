@@ -1,6 +1,12 @@
 // TYPES_H
 
-typedef struct customer{	//customer node
+#include "constants.h"
+#include <pthread.h>
+
+#ifndef type
+#define type
+
+typedef struct customer_t{	//customer node
 	int cid;				//customer id
 	int qid;				//queue id (0 = economy class, 1 = business class)
 	int atime;				//arrival time				
@@ -9,20 +15,22 @@ typedef struct customer{	//customer node
 	int clerk;				//clerk who serves customer
 	float wait_start;		//start time of service
 	float wait_end;			//end time of service
-}customer;
+}customer_t;
 
-typedef struct clerk{		//clerk node
+typedef struct clerk_t{		//clerk node
 	int id;					//clerk id
 	int busy;				//availability of clerk (0 = free, 1 = busy)
-}clerk;
+}clerk_t;
 
-customer* customers;		//list of all customers
-customer* queue[_queues];	//queues (0 = economy class, 1 = business class)
-clerk clerks[_clerks];		//list of all clerks
-int qlength[_queues] = {0};	//queue lengths (0 = economy class, 1 = business class)
-float waitTime[_queues] = {0};	//wait times (0 = economy class, 1 = business class)
-int lineLength[_allQueues] = {0};	//total line lengths (0 = economy class, 1 = business class, 2 = total customers)
-struct timeval program_start;//start time of program
+extern customer_t* customers_;	//list of all customers
+extern customer_t* queue_[];	//queues (0 = economy class, 1 = business class)
+extern clerk_t clerks_[];		//list of all clerks
+extern int qlength_[];			//queue lengths (0 = economy class, 1 = business class)
+extern float waitTime_[];		//wait times (0 = economy class, 1 = business class)
+extern int lineLength_[];		//total line lengths (0 = economy class, 1 = business class, 2 = total customers)
+extern struct timeval program_start_;	//start time of program
 
-pthread_mutex_t mutex[_mutex];
-pthread_cond_t convar[_convar];
+extern pthread_mutex_t mutex_[];
+extern pthread_cond_t convar_[];
+
+#endif

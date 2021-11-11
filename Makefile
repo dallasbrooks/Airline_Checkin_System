@@ -1,26 +1,21 @@
-apple = https://www.cs.swarthmore.edu/~newhall/unixhelp/howto_makefiles.html
 CC = gcc
-CFLAGS = -Wall -I$(IDIR)
-LIBS  = -pthread
-IDIR = ../hdr
+CFLAGS = -Wall
+LIBS = -pthread
 
-SRC = main.c \
-	airport.c \
-	clerk.c \
-	customer.c \
-	errors.c
+SOURCES := $(shell find . -name '*.c')
+HEADERS := $(shell find . -name '*.h')
 
-OBJ = $(SRC:.c=.o)
+OUTPUT = ACS
+PLAY = ./$(OUTPUT)
+CUSTOMERS = ./files/customers.txt
 
-MAIN = mycc
+all: $(OUTPUT)
 
-all: $(MAIN)
+$(OUTPUT): $(SOURCES) $(HEADERS)
+	$(CC) $(CFLAGS) $(LIBS) -o $(OUTPUT) $(SOURCES)
 
-$(MAIN): $(OBJ)
-	$(CC) $(CFLAGS) -o $(MAIN) $(OBJ)
-
-.c.o:
-	$(CC) $(CFLAGS) -c $< -o $@
+run:
+	$(PLAY) $(CUSTOMERS)
 
 clean:
-	$(RM) *.o *~ $(MAIN)
+	-$(RM) $(OUTPUT)

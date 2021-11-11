@@ -7,3 +7,6 @@
 
 #define _mutex 5		// _clerks + 1
 #define _convar 6 		// _queues + _clerks
+
+#define _defaultClerk -1
+#define _defaultBusy 0
