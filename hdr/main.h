@@ -13,5 +13,6 @@
 #include "customer.h"
 #include "errors.h"
 #include "helper.h"
+#include "makecustomers.h"
 #include "threads.h"
 #include "types.h"

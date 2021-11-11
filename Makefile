@@ -2,8 +2,8 @@ CC = gcc
 CFLAGS = -Wall
 LIBS = -pthread
 
-SOURCES := $(shell find . -name '*.c')
-HEADERS := $(shell find . -name '*.h')
+SOURCES := $(wildcard ./src/*.c)
+HEADERS := $(wildcard ./hdr/*.h)
 
 OUTPUT = ACS
 PLAY = ./$(OUTPUT)
