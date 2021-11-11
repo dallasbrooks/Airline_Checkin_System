@@ -26,7 +26,11 @@ char* ErrorMsg(int err){
 		case(ERR_INIT_MUTEX):
 			return "Failure initializing mutex";
 		case(ERR_INIT_CONVAR):
-			return "Invalid initializing convar";
+			return "Failure initializing convar";
+		case(ERR_INIT_CLERK):
+			return "Failure initializing clerk thread";
+		case(ERR_INV_QUEUE):
+			return "Failure invalid queue";
 		default:
 			return "Unknown Error";
 	}

@@ -17,3 +17,9 @@ char* ErrorMsg(int ret);
 //threads
 #define ERR_INIT_MUTEX 7
 #define ERR_INIT_CONVAR 8
+
+//clerks
+#define ERR_INIT_CLERK 9
+
+//queues
+#define ERR_INV_QUEUE 10
