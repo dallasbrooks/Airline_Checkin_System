@@ -24,3 +24,23 @@ int InitializeConvar(){
 	return ret;
 }
 
+int DestroyThreads(){
+	int ret = ERR_OK;
+	for(int a = 0; a < _mutex; a++){
+		ret = pthread_mutex_destroy(&mutex_[a]);
+		if(ret != ERR_OK){
+			ret = ERR_DESTROY_MUTEX;
+			LOGGER(ret);
+			exit(ERR_FAIL);
+		}
+	}
+	for(int a = 0; a < _convar; a++){
+		ret = pthread_cond_destroy(&convar_[a]);
+		if(ret != ERR_OK){
+			ret = ERR_DESTROY_CONVAR;
+			LOGGER(ret);
+			exit(ERR_FAIL);
+		}
+	}
+	return ret;
+}

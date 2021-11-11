@@ -35,5 +35,15 @@ int YYJ(int argc, char* argv[]){
 		LOGGER(ret);
 		exit(ERR_FAIL);
 	}
+	ret = DestroyThreads();
+	if(ret != ERR_OK){
+		LOGGER(ret);
+		exit(ERR_FAIL);
+	}
+	ret = PrintStats();
+	if(ret != ERR_OK){
+		LOGGER(ret);
+		exit(ERR_FAIL);
+	}
 	return ret;
 }

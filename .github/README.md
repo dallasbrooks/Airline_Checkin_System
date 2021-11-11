@@ -18,14 +18,17 @@ make clean
 ```
 
 Input file must be in the form:
-- First character specifies the unique ID of customers
-- A colon(:) immediately follows the unique number of the customer
-- Immediately following is an integer equal to either 1 (indicating the customer belongs to business class) or 0 (indicating the customer belongs to economy class)
-- A comma(,) immediately follows the previous number
-- Immediately following is an integer that indicates the arrival time of the customer
-- A comma(,) immediately follows the previous number
-- Immediately following is an integer that indicate the service time of the customer
-- a newline(\n) ends a line
+- Number of expected customers
+- A newline (\n)
+- (Repeat per customer)
+- Unique customer ID
+- A colon (:)
+- Customer queue selection (0 or 1)
+- A comma (,)
+- Customer arrival time
+- A comma (,)
+- Customer service time
+- A newline (\n)
 
 
 Example input file:

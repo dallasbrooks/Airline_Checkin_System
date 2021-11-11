@@ -4,3 +4,4 @@
 
 int InitializeMutex();
 int InitializeConvar();
+int DestroyThreads();

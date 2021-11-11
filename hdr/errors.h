@@ -24,12 +24,14 @@ char* ErrorMsg(int ret);
 #define ERR_WAIT_CONVAR 13
 #define ERR_CREATE_THREAD 14
 #define ERR_JOIN_THREAD 15
+#define ERR_DESTROY_MUTEX 16
+#define ERR_DESTROY_CONVAR 17
 
 //clerks
-#define ERR_INIT_CLERK 16
+#define ERR_INIT_CLERK 18
 
 //queues
-#define ERR_INV_QUEUE 17
+#define ERR_INV_QUEUE 19
 
 //time
-#define ERR_TIME 18
+#define ERR_TIME 20

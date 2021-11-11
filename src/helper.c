@@ -30,3 +30,11 @@ int popQueue(int k){
 	qlength_[k]--;
 	return cindex;
 }
+
+int PrintStats(){
+	int ret = ERR_OK;
+	printf("The average waiting time for all customers in the system is: %.2f seconds.\n", (waitTime_[0]+waitTime_[1])/lineLength_[2]);
+	printf("The average waiting time for all business-class customers is: %.2f seconds.\n", waitTime_[1]/lineLength_[1]);
+	printf("The average waiting time for all economy-class customers is: %.2f seocnds.\n", waitTime_[0]/lineLength_[0]);
+	return ret;
+}

@@ -45,6 +45,10 @@ char* ErrorMsg(int err){
 			return "Failure creating thread";
 		case(ERR_TIME):
 			return "Failure getting time";
+		case(ERR_DESTROY_MUTEX):
+			return "Failure destroying mutex";
+		case(ERR_DESTROY_CONVAR):
+			return "Failure destroying convar";
 		default:
 			return "Unknown Error";
 	}
