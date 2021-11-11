@@ -17,9 +17,19 @@ char* ErrorMsg(int ret);
 //threads
 #define ERR_INIT_MUTEX 7
 #define ERR_INIT_CONVAR 8
+#define ERR_LOCK_MUTEX 9
+#define ERR_UNLOCK_MUTEX 10
+#define ERR_BROADCAST_CONVAR 11
+#define ERR_SIGNAL_CONVAR 12
+#define ERR_WAIT_CONVAR 13
+#define ERR_CREATE_THREAD 14
+#define ERR_JOIN_THREAD 15
 
 //clerks
-#define ERR_INIT_CLERK 9
+#define ERR_INIT_CLERK 16
 
 //queues
-#define ERR_INV_QUEUE 10
+#define ERR_INV_QUEUE 17
+
+//time
+#define ERR_TIME 18

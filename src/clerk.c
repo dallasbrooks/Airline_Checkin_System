@@ -25,49 +25,64 @@ int CreateClerkThread(){
 }
 
 void* clerk_runner(void* info){
+	int ret = ERR_OK;
 	clerk_t* p = (clerk_t*) info;
-	while(1){
-		if(pthread_mutex_lock(&mutex_[_first]) != 0){
-			printf("Error: failed to lock mutex.\n");
-			exit(1);
+	while(TRUE){
+		ret = pthread_mutex_lock(&mutex_[_first]);
+		if(ret != ERR_OK){
+			ret = ERR_LOCK_MUTEX;
+			LOGGER(ret);
+			exit(ERR_FAIL);
 		}
 		int qindex = 1;
 		if(qlength_[qindex] <= _first){
-			qindex = 0;
+			qindex = _first;
 		}
-		if(qlength_[qindex] > 0){
+		if(qlength_[qindex] > _first){
 			int cindex = popQueue(qindex);
 			customers_[cindex].clerk = p->id;
 			clerks_[p->id-1].busy = _busy;
-			if(pthread_cond_broadcast(&convar_[qindex]) != 0){
-				printf("Error: failed to broadcast convar.\n");
-				exit(1);
+			ret = pthread_cond_broadcast(&convar_[qindex]);
+			if(ret != ERR_OK){
+				ret = ERR_BROADCAST_CONVAR;
+				LOGGER(ret);
+				exit(ERR_FAIL);
 			}
-			if(pthread_mutex_unlock(&mutex_[0]) != 0){
-				printf("Error: failed to unlock mutex.\n");
-				exit(1);
+			ret = pthread_mutex_unlock(&mutex_[_first]);
+			if(ret != ERR_OK){
+				ret = ERR_UNLOCK_MUTEX;
+				LOGGER(ret);
+				exit(ERR_FAIL);
 			}
 		}
 		else{
-			if(pthread_mutex_unlock(&mutex_[0]) != 0){
-				printf("Error: failed to unlock mutex.\n");
-				exit(1);
+			ret = pthread_mutex_unlock(&mutex_[_first]);
+			if(ret != ERR_OK){
+				ret = ERR_UNLOCK_MUTEX;
+				LOGGER(ret);
+				exit(ERR_FAIL);
 			}
-			usleep(250);
+			usleep(_sleepSecs);
 		}
-		if(pthread_mutex_lock(&mutex_[p->id]) != 0){
-			printf("Error: failed to lock mutex.\n");
-			exit(1);
+		ret = pthread_mutex_lock(&mutex_[p->id]);
+		if(ret != ERR_OK){
+			ret = ERR_LOCK_MUTEX;
+			LOGGER(ret);
+			exit(ERR_FAIL);
 		}
 		if(clerks_[p->id-1].busy){
-			if(pthread_cond_wait(&convar_[p->id+1], &mutex_[p->id]) != 0){
-				printf("Error: failed to wait.\n");
-				exit(1);
+			ret = pthread_cond_wait(&convar_[p->id+1], &mutex_[p->id]);
+			if(ret != ERR_OK){
+				ret = ERR_WAIT_CONVAR;
+				LOGGER(ret);
+				exit(ERR_FAIL);
 			}
 		}
-		if(pthread_mutex_unlock(&mutex_[p->id]) != 0){
-			printf("Error: failed to unlock mutex.\n");
-			exit(1);
+		ret = pthread_mutex_unlock(&mutex_[p->id]);
+		if(ret != ERR_OK){
+			ret = ERR_UNLOCK_MUTEX;
+			LOGGER(ret);
+			exit(ERR_FAIL);
 		}
 	}
 	return NULL;

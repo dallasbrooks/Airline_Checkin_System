@@ -48,3 +48,97 @@ int GetCustomers(char* file){
 	fclose(fp);
 	return ret;
 }
+
+int InitializeCustomers(){
+	int ret = ERR_OK;
+	pthread_t customerThread[lineLength_[_allQueues-1]];
+	for(int a = 0; a < lineLength_[_allQueues-1]; a++){
+		ret = pthread_create(&customerThread[a], NULL, customer_runner, (void*)&customers_[a]);
+		if(ret != ERR_OK){
+			ret = ERR_CREATE_THREAD;
+			LOGGER(ret);
+			exit(ERR_FAIL);
+		}
+	}
+	for(int a = 0; a < lineLength_[_allQueues-1]; a++){
+		ret = pthread_join(customerThread[a], NULL);
+		if(ret != ERR_OK){
+			ret = ERR_JOIN_THREAD;
+			LOGGER(ret);
+			exit(ERR_FAIL);
+		}
+	}
+	return ret;
+}
+
+void* customer_runner(void* info){
+	int ret = ERR_OK;
+	customer_t* p = (customer_t*) info;
+	usleep(p->atime * _MicroStoS);
+	printf("A customer arrives: customer ID %2d.\n", p->cid);
+	ret = pthread_mutex_lock(&mutex_[_first]);
+	if(ret != ERR_OK){
+		ret = ERR_LOCK_MUTEX;
+		LOGGER(ret);
+		exit(ERR_FAIL);
+	}
+	insertQueue(p, p->qid);
+	printf("A customer enters a queue: the queue ID %1d, and length of the queue %2d.\n", p->qid, qlength_[p->qid]);
+	float time;
+	ret = GetTimeNow(&time);
+	if(ret != ERR_OK){
+		ret = ERR_TIME;
+		LOGGER(ret);
+	}
+	p->wait_start = time;
+	while(p->clerk == _defaultClerk){
+		ret = pthread_cond_wait(&convar_[p->qid], &mutex_[_first]); 
+		if(ret != ERR_OK){
+			ret = ERR_WAIT_CONVAR;
+			LOGGER(ret);
+			exit(ERR_FAIL);
+		}
+	}
+	ret = GetTimeNow(&time);
+	if(ret != ERR_OK){
+		ret = ERR_TIME;
+		LOGGER(ret);
+	}
+	p->wait_end = time;
+	waitTime_[p->qid] += p->wait_end - p->wait_start;
+	printf("A clerk starts serving a customer: start time %.2f, the customer ID %2d, the clerk ID %1d.\n", p->wait_end, p->cid, p->clerk);
+	ret = pthread_mutex_unlock(&mutex_[_first]);
+	if(ret != ERR_OK){
+		ret = ERR_UNLOCK_MUTEX;
+		LOGGER(ret);
+		exit(ERR_FAIL);
+	}
+	usleep(p->stime * _MicroStoS);
+	ret = GetTimeNow(&time);
+	if(ret != ERR_OK){
+		ret = ERR_TIME;
+		LOGGER(ret);
+	}
+	printf("A clerk finishes serving a customer: end time %.2f, the customer ID %2d, the clerk ID %1d.\n", time, p->cid, p->clerk);
+	int clerk = p->clerk;
+	ret = pthread_mutex_lock(&mutex_[clerk]);
+	if(ret != ERR_OK){
+		ret = ERR_LOCK_MUTEX;
+		LOGGER(ret);
+		exit(ERR_FAIL);
+	}
+	clerks_[clerk-1].busy = _free;
+	ret = pthread_cond_signal(&convar_[clerk+1]);
+	if(ret != ERR_OK){
+		ret = ERR_BROADCAST_CONVAR;
+		LOGGER(ret);
+		exit(ERR_FAIL);
+	}
+	ret = pthread_mutex_unlock(&mutex_[p->cid]);
+	if(ret != ERR_OK){
+		ret = ERR_UNLOCK_MUTEX;
+		LOGGER(ret);
+		exit(ERR_FAIL);
+	}
+	return NULL;
+}

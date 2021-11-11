@@ -31,6 +31,20 @@ char* ErrorMsg(int err){
 			return "Failure initializing clerk thread";
 		case(ERR_INV_QUEUE):
 			return "Failure invalid queue";
+		case(ERR_LOCK_MUTEX):
+			return "Failure locking mutex";
+		case(ERR_UNLOCK_MUTEX):
+			return "Failure unlocking mutex";
+		case(ERR_BROADCAST_CONVAR):
+			return "Failure broadcasting convar";
+		case(ERR_SIGNAL_CONVAR):
+			return "Failure signalling convar";
+		case(ERR_WAIT_CONVAR):
+			return "Failure waiting for convar";
+		case(ERR_CREATE_THREAD):
+			return "Failure creating thread";
+		case(ERR_TIME):
+			return "Failure getting time";
 		default:
 			return "Unknown Error";
 	}

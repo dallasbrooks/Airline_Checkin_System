@@ -30,5 +30,10 @@ int YYJ(int argc, char* argv[]){
 		LOGGER(ret);
 		exit(ERR_FAIL);
 	}
+	ret = InitializeCustomers();
+	if(ret != ERR_OK){
+		LOGGER(ret);
+		exit(ERR_FAIL);
+	}
 	return ret;
 }
