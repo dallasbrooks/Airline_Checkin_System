@@ -56,16 +56,14 @@ int InitializeCustomers(){
 		ret = pthread_create(&customerThread[a], NULL, customer_runner, (void*)&customers_[a]);
 		if(ret != ERR_OK){
 			ret = ERR_CREATE_THREAD;
-			LOGGER(ret);
-			exit(ERR_FAIL);
+			return ret;
 		}
 	}
 	for(int a = 0; a < lineLength_[_allQueues-1]; a++){
 		ret = pthread_join(customerThread[a], NULL);
 		if(ret != ERR_OK){
 			ret = ERR_JOIN_THREAD;
-			LOGGER(ret);
-			exit(ERR_FAIL);
+			return ret;
 		}
 	}
 	return ret;

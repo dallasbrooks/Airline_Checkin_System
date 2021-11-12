@@ -15,12 +15,7 @@ int YYJ(int argc, char* argv[]){
 		exit(ERR_FAIL);
 	}
 	gettimeofday(&program_start_, NULL);
-	ret = InitializeMutex();
-	if(ret != ERR_OK){
-		LOGGER(ret);
-		exit(ERR_FAIL);
-	}
-	ret = InitializeConvar();
+	ret = CreateMutexConvar();
 	if(ret != ERR_OK){
 		LOGGER(ret);
 		exit(ERR_FAIL);
@@ -35,7 +30,7 @@ int YYJ(int argc, char* argv[]){
 		LOGGER(ret);
 		exit(ERR_FAIL);
 	}
-	ret = DestroyThreads();
+	ret = DestroyMutexConvar();
 	if(ret != ERR_OK){
 		LOGGER(ret);
 		exit(ERR_FAIL);

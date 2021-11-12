@@ -8,6 +8,11 @@ int InitializeClerks(){
 		clerks_[a].id = a+1;
 		clerks_[a].busy = _defaultBusy;
 	}
+	ret = CreateClerkThread();
+	if(ret != ERR_OK){
+		ret = ERR_INIT_CLERK;
+		return ret;
+	}
 	return ret;
 }
 
@@ -15,10 +20,10 @@ int CreateClerkThread(){
 	int ret = ERR_OK;
 	for(int a = 0; a < _clerks; a++){
 		pthread_t clerkThread;
-		if(pthread_create(&clerkThread, NULL, clerk_runner, (void*)&clerks_[a]) != ERR_OK){
-			ret = ERR_INIT_CLERK;
-			LOGGER(ret);
-			exit(ERR_FAIL);
+		ret = pthread_create(&clerkThread, NULL, clerk_runner, (void*)&clerks_[a]);
+		if(ret != ERR_OK){
+			ret = ERR_CREATE_THREAD;
+			return ret;
 		}
 	}
 	return ret;

@@ -2,6 +2,9 @@
 
 #include <pthread.h>
 
+int CreateMutexConvar();
 int InitializeMutex();
 int InitializeConvar();
-int DestroyThreads();
+int DestroyMutexConvar();
+int DestroyMutex();
+int DestroyConvar();

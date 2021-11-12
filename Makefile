@@ -1,5 +1,6 @@
 CC = gcc
 CFLAGS = -Wall
+CFLAGS += -g
 LIBS = -pthread
 
 SOURCES := $(wildcard ./src/*.c)
