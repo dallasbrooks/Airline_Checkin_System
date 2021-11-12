@@ -6,7 +6,7 @@ int InitializeClerks(){
 	int ret = ERR_OK;
 	for(int a = 0; a < _clerks; a++){
 		clerks_[a].id = a+1;
-		clerks_[a].busy = _defaultBusy;
+		clerks_[a].busy = _free;
 	}
 	ret = CreateClerkThread();
 	if(ret != ERR_OK){
@@ -59,8 +59,7 @@ void* clerk_runner(void* info){
 				LOGGER(ret);
 				exit(ERR_FAIL);
 			}
-		}
-		else{
+		}else{
 			ret = pthread_mutex_unlock(&mutex_[_first]);
 			if(ret != ERR_OK){
 				ret = ERR_UNLOCK_MUTEX;

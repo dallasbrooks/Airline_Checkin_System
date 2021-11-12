@@ -8,3 +8,5 @@ int insertQueue(customer_t* p, int k);
 int popQueue(int k);
 
 int PrintStats();
+
+int DestroyGlobals();

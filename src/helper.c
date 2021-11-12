@@ -38,3 +38,12 @@ int PrintStats(){
 	printf("The average waiting time for all economy-class customers is: %.2f seocnds.\n", waitTime_[0]/lineLength_[0]);
 	return ret;
 }
+
+int DestroyGlobals(){
+	int ret = ERR_OK;
+	free(customers_);
+	for(int a = 0; a < _queues; a++){
+		free(queue_[a]);
+	}
+	return ret;
+}

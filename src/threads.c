@@ -18,7 +18,8 @@ int CreateMutexConvar(){
 int InitializeMutex(){
 	int ret = ERR_OK;
 	for(int a = 0; a < _mutex; a++){
-		if(pthread_mutex_init(&mutex_[a], NULL) != ERR_OK){
+		ret = pthread_mutex_init(&mutex_[a], NULL);
+		if(ret != ERR_OK){
 			ret = ERR_INIT_MUTEX;
 			break;
 		}
@@ -29,7 +30,8 @@ int InitializeMutex(){
 int InitializeConvar(){
 	int ret = ERR_OK;
 	for(int a = 0; a < _convar; a++){
-		if(pthread_cond_init(&convar_[a], NULL) != 0){
+		ret = pthread_cond_init(&convar_[a], NULL);
+		if(ret != ERR_OK){
 			ret = ERR_INIT_CONVAR;
 			break;
 		}
@@ -50,11 +52,12 @@ int DestroyMutexConvar(){
 	return ret;
 }
 
+#include <errno.h>
+
 int DestroyMutex(){
 	int ret = ERR_OK;
 	for(int a = 0; a < _mutex; a++){
 		ret = pthread_mutex_destroy(&mutex_[a]);
-		printf("%d\n", a);
 		if(ret != ERR_OK){
 			ret = ERR_DESTROY_MUTEX;
 			return ret;
