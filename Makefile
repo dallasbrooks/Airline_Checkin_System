@@ -9,6 +9,8 @@ HEADERS := $(wildcard ./hdr/*.h)
 OUTPUT = ACS
 PLAY = ./$(OUTPUT)
 CUSTOMERS = ./files/customers.txt
+#Uncomment line to run NCustomers file
+#CUSTOMERS = ./files/Ncustomers.txt
 
 all: $(OUTPUT)
 
@@ -17,6 +19,9 @@ $(OUTPUT): $(SOURCES) $(HEADERS)
 
 run:
 	$(PLAY) $(CUSTOMERS)
+
+custs:
+	$(PLAY)
 
 clean:
 	-$(RM) $(OUTPUT)

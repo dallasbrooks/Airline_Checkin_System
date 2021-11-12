@@ -75,67 +75,52 @@ void* customer_runner(void* info){
 	printf("A customer arrives: customer ID %2d.\n", p->cid);
 	ret = pthread_mutex_lock(&mutex_[_first]);
 	if(ret != ERR_OK){
-		ret = ERR_LOCK_MUTEX;
-		LOGGER(ret);
-		exit(ERR_FAIL);
+		HandleExit(ERR_LOCK_MUTEX);
 	}
 	insertQueue(p, p->qid);
 	printf("A customer enters a queue: the queue ID %1d, and length of the queue %2d.\n", p->qid, qlength_[p->qid]);
 	float time;
 	ret = GetTimeNow(&time);
 	if(ret != ERR_OK){
-		ret = ERR_TIME;
-		LOGGER(ret);
+		HandleExit(ERR_TIME);
 	}
 	p->wait_start = time;
 	while(p->clerk == _defaultClerk){
 		ret = pthread_cond_wait(&convar_[p->qid], &mutex_[_first]); 
 		if(ret != ERR_OK){
-			ret = ERR_WAIT_CONVAR;
-			LOGGER(ret);
-			exit(ERR_FAIL);
+			HandleExit(ERR_WAIT_CONVAR);
 		}
 	}
 	ret = GetTimeNow(&time);
 	if(ret != ERR_OK){
-		ret = ERR_TIME;
-		LOGGER(ret);
+		HandleExit(ERR_TIME);
 	}
 	p->wait_end = time;
 	waitTime_[p->qid] += p->wait_end - p->wait_start;
 	printf("A clerk starts serving a customer: start time %.2f, the customer ID %2d, the clerk ID %1d.\n", p->wait_end, p->cid, p->clerk);
 	ret = pthread_mutex_unlock(&mutex_[_first]);
 	if(ret != ERR_OK){
-		ret = ERR_UNLOCK_MUTEX;
-		LOGGER(ret);
-		exit(ERR_FAIL);
+		HandleExit(ERR_UNLOCK_MUTEX);
 	}
 	usleep(p->stime * _MicroStoS);
 	ret = GetTimeNow(&time);
 	if(ret != ERR_OK){
-		ret = ERR_TIME;
-		LOGGER(ret);
+		HandleExit(ERR_TIME);
 	}
 	printf("A clerk finishes serving a customer: end time %.2f, the customer ID %2d, the clerk ID %1d.\n", time, p->cid, p->clerk);
 	int clerk = p->clerk;
 	ret = pthread_mutex_lock(&mutex_[clerk]);
 	if(ret != ERR_OK){
-		ret = ERR_LOCK_MUTEX;
-		LOGGER(ret);
-		exit(ERR_FAIL);
+		HandleExit(ERR_LOCK_MUTEX);
 	}
 	clerks_[clerk-1].busy = _free;
 	ret = pthread_cond_signal(&convar_[clerk+1]);
 	if(ret != ERR_OK){
-		ret = ERR_BROADCAST_CONVAR;
-		LOGGER(ret);
-		exit(ERR_FAIL);
+		HandleExit(ERR_BROADCAST_CONVAR);
 	}
 	ret = pthread_mutex_unlock(&mutex_[clerk]);
 	if(ret != ERR_OK){
-		ret = ERR_UNLOCK_MUTEX;
-		LOGGER(ret);
-		exit(ERR_FAIL);
+		HandleExit(ERR_UNLOCK_MUTEX);
 	}
 	return NULL;
 }

@@ -2,6 +2,13 @@
 
 #include "../hdr/main.h"
 
+void HandleExit(int err){
+	if(err != ERR_OK){
+		LOGGER(err);
+		exit(ERR_FAIL);
+	}
+}
+
 void LOGGER(int err){
 	char* msg = ErrorMsg(err);
 	printf("%s (err: %d)\n", msg, err);

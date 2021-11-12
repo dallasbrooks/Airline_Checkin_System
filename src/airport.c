@@ -9,41 +9,13 @@ int YYJ(int argc, char* argv[]){
 		LOGGER(ret);
 		return ret;
 	}
-	ret = GetCustomers(argv[1]);
-	if(ret != ERR_OK){
-		LOGGER(ret);
-		exit(ERR_FAIL);
-	}
+	HandleExit(GetCustomers(argv[1]));
 	gettimeofday(&program_start_, NULL);
-	ret = CreateMutexConvar();
-	if(ret != ERR_OK){
-		LOGGER(ret);
-		exit(ERR_FAIL);
-	}
-	ret = InitializeClerks();
-	if(ret != ERR_OK){
-		LOGGER(ret);
-		exit(ERR_FAIL);
-	}
-	ret = InitializeCustomers();
-	if(ret != ERR_OK){
-		LOGGER(ret);
-		exit(ERR_FAIL);
-	}
-	ret = DestroyMutexConvar();
-	if(ret != ERR_OK){
-		LOGGER(ret);
-		exit(ERR_FAIL);
-	}
-	ret = PrintStats();
-	if(ret != ERR_OK){
-		LOGGER(ret);
-		exit(ERR_FAIL);
-	}
-	ret = DestroyGlobals();
-	if(ret != ERR_OK){
-		LOGGER(ret);
-		exit(ERR_FAIL);
-	}
+	HandleExit(CreateMutexConvar());
+	HandleExit(InitializeClerks());
+	HandleExit(InitializeCustomers());
+	HandleExit(DestroyMutexConvar());
+	HandleExit(PrintStats());
+	HandleExit(DestroyGlobals());
 	return ret;
 }

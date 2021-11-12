@@ -1,5 +1,6 @@
 //ERRORS_H
 
+void HandleExit(int err);
 void LOGGER(int err);
 char* ErrorMsg(int ret);
 

@@ -1,3 +1,3 @@
 //MAKECUSTOMERS_H
 
-void MakeCustomers();
+void MakeNCustomers();

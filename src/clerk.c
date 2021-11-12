@@ -35,9 +35,7 @@ void* clerk_runner(void* info){
 	while(TRUE){
 		ret = pthread_mutex_lock(&mutex_[_first]);
 		if(ret != ERR_OK){
-			ret = ERR_LOCK_MUTEX;
-			LOGGER(ret);
-			exit(ERR_FAIL);
+			HandleExit(ERR_LOCK_MUTEX);
 		}
 		int qindex = 1;
 		if(qlength_[qindex] <= _first){
@@ -49,44 +47,32 @@ void* clerk_runner(void* info){
 			clerks_[p->id-1].busy = _busy;
 			ret = pthread_cond_broadcast(&convar_[qindex]);
 			if(ret != ERR_OK){
-				ret = ERR_BROADCAST_CONVAR;
-				LOGGER(ret);
-				exit(ERR_FAIL);
+				HandleExit(ERR_BROADCAST_CONVAR);
 			}
 			ret = pthread_mutex_unlock(&mutex_[_first]);
 			if(ret != ERR_OK){
-				ret = ERR_UNLOCK_MUTEX;
-				LOGGER(ret);
-				exit(ERR_FAIL);
+				HandleExit(ERR_UNLOCK_MUTEX);
 			}
 		}else{
 			ret = pthread_mutex_unlock(&mutex_[_first]);
 			if(ret != ERR_OK){
-				ret = ERR_UNLOCK_MUTEX;
-				LOGGER(ret);
-				exit(ERR_FAIL);
+				HandleExit(ERR_UNLOCK_MUTEX);
 			}
 			usleep(_sleepSecs);
 		}
 		ret = pthread_mutex_lock(&mutex_[p->id]);
 		if(ret != ERR_OK){
-			ret = ERR_LOCK_MUTEX;
-			LOGGER(ret);
-			exit(ERR_FAIL);
+			HandleExit(ERR_LOCK_MUTEX);
 		}
 		if(clerks_[p->id-1].busy){
 			ret = pthread_cond_wait(&convar_[p->id+1], &mutex_[p->id]);
 			if(ret != ERR_OK){
-				ret = ERR_WAIT_CONVAR;
-				LOGGER(ret);
-				exit(ERR_FAIL);
+				HandleExit(ERR_WAIT_CONVAR);
 			}
 		}
 		ret = pthread_mutex_unlock(&mutex_[p->id]);
 		if(ret != ERR_OK){
-			ret = ERR_UNLOCK_MUTEX;
-			LOGGER(ret);
-			exit(ERR_FAIL);
+			HandleExit(ERR_UNLOCK_MUTEX);
 		}
 	}
 	return NULL;
