@@ -11,6 +11,12 @@ or
 ```
 ./ACS <inputfile>.txt
 ```
+
+To make a new customers file:
+```
+make custs
+```
+
 	
 To clean:
 ```
@@ -42,4 +48,3 @@ Example input file:
 6:1,8,50
 7:0,10,30
 ```
-`
