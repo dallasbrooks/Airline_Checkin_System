@@ -54,6 +54,7 @@ int DestroyMutex(){
 	int ret = ERR_OK;
 	for(int a = 0; a < _mutex; a++){
 		ret = pthread_mutex_destroy(&mutex_[a]);
+		printf("%d\n", a);
 		if(ret != ERR_OK){
 			ret = ERR_DESTROY_MUTEX;
 			return ret;
