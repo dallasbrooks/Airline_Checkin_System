@@ -11,12 +11,6 @@ or
 ```
 ./ACS <inputfile>.txt
 ```
-
-To make a new customers file:
-```
-make custs
-```
-
 	
 To clean:
 ```

@@ -2,10 +2,10 @@
 
 int main(int argc, char* argv[]){
 	int ret = ERR_OK;
-	if(argc == ERR_FAIL){
+	#ifdef MAKE_CUSTS
 		MakeNCustomers();
 		return ret;
-	}
+	#endif
 	ret = YYJ(argc, argv);
 	return ret;
 }

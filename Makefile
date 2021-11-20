@@ -1,6 +1,7 @@
 CC = gcc
-CFLAGS = -Wall
-CFLAGS += -g
+CFLAGS = -Wall -g
+#Uncomment line to run NCustomers file
+#CFLAGS += -DMAKE_CUSTS
 LIBS = -pthread
 
 SOURCES := $(wildcard ./src/*.c)
@@ -9,8 +10,6 @@ HEADERS := $(wildcard ./hdr/*.h)
 OUTPUT = ACS
 PLAY = ./$(OUTPUT)
 CUSTOMERS = ./files/customers.txt
-#Uncomment line to run NCustomers file
-#CUSTOMERS = ./files/Ncustomers.txt
 
 all: $(OUTPUT)
 
@@ -19,9 +18,6 @@ $(OUTPUT): $(SOURCES) $(HEADERS)
 
 run:
 	$(PLAY) $(CUSTOMERS)
-
-custs:
-	$(PLAY)
 
 clean:
 	-$(RM) $(OUTPUT)
