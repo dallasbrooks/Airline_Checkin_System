@@ -1,6 +1,6 @@
-#include "../hdr/threads.h"
+#include "../hdr/Threads.h"
 
-#include "../hdr/main.h"
+#include "../hdr/Main.h"
 
 int CreateMutexConvar(){
 	int ret = ERR_OK;

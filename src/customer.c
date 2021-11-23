@@ -1,6 +1,6 @@
-#include "../hdr/customer.h"
+#include "../hdr/Customer.h"
 
-#include "../hdr/main.h"
+#include "../hdr/Main.h"
 
 int GetCustomers(char* file){
 	int ret = ERR_OK;

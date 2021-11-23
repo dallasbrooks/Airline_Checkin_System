@@ -1,6 +1,6 @@
-#include "../hdr/errors.h"
+#include "../hdr/Errors.h"
 
-#include "../hdr/main.h"
+#include "../hdr/Main.h"
 
 void HandleExit(int err){
 	if(err != ERR_OK){

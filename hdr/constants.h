@@ -19,9 +19,9 @@
 #define _free 0
 #define _busy 1
 
-#define _makeNCustomers 50
-#define _maxArrivaltime 50
-#define _maxServiceTime 30
+#define _makeNCustomers 100
+#define _maxArrivaltime 100
+#define _maxServiceTime 45
 #define _outputFile "./files/NCustomers.txt"
 
 #define _sleepSecs 250

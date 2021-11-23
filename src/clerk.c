@@ -1,6 +1,6 @@
-#include "../hdr/clerk.h"
+#include "../hdr/Clerk.h"
 
-#include "../hdr/main.h"
+#include "../hdr/Main.h"
 
 int InitializeClerks(){
 	int ret = ERR_OK;

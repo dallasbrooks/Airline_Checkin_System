@@ -1,6 +1,6 @@
-#include "../hdr/airport.h"
+#include "../hdr/Airport.h"
 
-#include "../hdr/main.h"
+#include "../hdr/Main.h"
 
 int YYJ(int argc, char* argv[]){
 	int ret = ERR_OK;

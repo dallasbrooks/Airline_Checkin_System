@@ -1,6 +1,6 @@
-#include "../hdr/types.h"
+#include "../hdr/Types.h"
 
-#include "../hdr/main.h"
+#include "../hdr/Main.h"
 
 customer_t* customers_;
 customer_t* queue_[_queues];

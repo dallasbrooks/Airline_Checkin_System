@@ -7,12 +7,12 @@
 #include <sys/time.h>
 
 
-#include "airport.h"
-#include "clerk.h"
-#include "constants.h"
-#include "customer.h"
-#include "errors.h"
-#include "helper.h"
-#include "makecustomers.h"
-#include "threads.h"
-#include "types.h"
+#include "Airport.h"
+#include "Clerk.h"
+#include "Constants.h"
+#include "Customer.h"
+#include "Errors.h"
+#include "Helper.h"
+#include "MakeCustomers.h"
+#include "Threads.h"
+#include "Types.h"

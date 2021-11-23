@@ -1,6 +1,6 @@
-#include "../hdr/helper.h"
+#include "../hdr/Helper.h"
 
-#include "../hdr/main.h"
+#include "../hdr/Main.h"
 
 int GetTimeNow(float* time){
 	int ret = ERR_OK;

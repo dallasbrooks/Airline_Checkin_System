@@ -4,35 +4,43 @@ void HandleExit(int err);
 void LOGGER(int err);
 char* ErrorMsg(int ret);
 
-//generic
-#define ERR_OK 0
-#define ERR_FAIL 1
+#ifndef ERRORS_H
+#define ERRORS_H
 
-//customer
-#define ERR_ARGS 2
-#define ERR_NULLPTR 3
-#define ERR_PARSE_FILE 4
-#define ERR_N_CUSTOMERS 5
-#define ERR_INV_CUSTOMER 6
+typedef enum errs_t{
+	
+	//generic
+	ERR_OK,
+	ERR_FAIL,
 
-//threads
-#define ERR_INIT_MUTEX 7
-#define ERR_INIT_CONVAR 8
-#define ERR_LOCK_MUTEX 9
-#define ERR_UNLOCK_MUTEX 10
-#define ERR_BROADCAST_CONVAR 11
-#define ERR_SIGNAL_CONVAR 12
-#define ERR_WAIT_CONVAR 13
-#define ERR_CREATE_THREAD 14
-#define ERR_JOIN_THREAD 15
-#define ERR_DESTROY_MUTEX 16
-#define ERR_DESTROY_CONVAR 17
+	//customer
+	ERR_ARGS,
+	ERR_NULLPTR,
+	ERR_PARSE_FILE,
+	ERR_N_CUSTOMERS,
+	ERR_INV_CUSTOMER,
 
-//clerks
-#define ERR_INIT_CLERK 18
+	//threads
+	ERR_INIT_MUTEX,
+	ERR_INIT_CONVAR,
+	ERR_LOCK_MUTEX,
+	ERR_UNLOCK_MUTEX,
+	ERR_BROADCAST_CONVAR,
+	ERR_SIGNAL_CONVAR,
+	ERR_WAIT_CONVAR,
+	ERR_CREATE_THREAD,
+	ERR_JOIN_THREAD,
+	ERR_DESTROY_MUTEX,
+	ERR_DESTROY_CONVAR,
 
-//queues
-#define ERR_INV_QUEUE 19
+	//clerks
+	ERR_INIT_CLERK,
 
-//time
-#define ERR_TIME 20
+	//queues
+	ERR_INV_QUEUE,
+
+	//time
+	ERR_TIME
+}errs_t;
+
+#endif

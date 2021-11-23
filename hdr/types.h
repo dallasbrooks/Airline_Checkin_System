@@ -1,10 +1,10 @@
 // TYPES_H
 
-#include "constants.h"
+#include "Constants.h"
 #include <pthread.h>
 
-#ifndef type
-#define type
+#ifndef TYPES_H
+#define TYPES_H
 
 typedef struct customer_t{	//customer node
 	int cid;				//customer id

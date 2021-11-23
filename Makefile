@@ -10,6 +10,7 @@ HEADERS := $(wildcard ./hdr/*.h)
 OUTPUT = ACS
 PLAY = ./$(OUTPUT)
 CUSTOMERS = ./files/customers.txt
+#CUSTOMERS = ./files/NCustomers.txt
 
 all: $(OUTPUT)
 

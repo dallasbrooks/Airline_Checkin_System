@@ -1,6 +1,6 @@
 //HELPER_H
 
-#include "types.h"
+#include "Types.h"
 
 int GetTimeNow(float* time);
 

@@ -1,6 +1,6 @@
-#include "../hdr/makecustomers.h"
+#include "../hdr/MakeCustomers.h"
 
-#include "../hdr/main.h"
+#include "../hdr/Main.h"
 
 void MakeNCustomers(){
 	srand(time(NULL));
